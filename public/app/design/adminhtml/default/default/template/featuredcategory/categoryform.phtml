@@ -1,0 +1,54 @@
+<?php $categories=$this->getLoadedCategories();//get categories from Block CategoryBlock  ?>
+
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('Manage Featured Categories')?></h3></td>
+            <td class="a-right">
+                <button onclick="editForm.submit()" class="scalable save" type="button"><span>Submit</span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+  <?php $_featuredCatIds= $this->getLoadedFeaturedCat();?>
+  
+
+
+<div class="entry-edit">
+   <form name="edit_form" id="edit_form" action="<?php echo $this->getUrl('adminfeaturedcategory/adminhtml_index/savecategory')?>" method="post" >
+   
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"  />
+  <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Featured Category Manager')?></h4>
+ <fieldset id="my-fieldset">
+            <table  cellspacing="0" class="form-list">
+ 
+   
+    <?php
+     $category = $this->childCategory();
+     $subcategory = $category->getAllChildren(true);
+     array_shift($subcategory);
+	 ?>
+    <?php   if($subcategory!=null) :?>
+         
+        <?php  foreach ($subcategory as $sub) :?>
+            <?php  $sub1 = Mage::getModel('catalog/category')->load( $sub);?>
+                 
+          <tr>
+          <td><span class="level<?php echo $sub1->getLevel();?>"> 
+         
+          <input type="checkbox" name="category[]" value="<?php echo $sub1->getId() ?>" <?php if(in_array($sub1->getId(),$_featuredCatIds)): ?> checked="checked" <?php endif ?>/>
+          <span><?php echo $sub1->getName(); ?></span>
+          </span>
+          </td>
+         </tr>
+       <?php endforeach ?>
+   <?php endif ?>
+ </table>
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form');
+</script>

@@ -1,0 +1,132 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+$config = Mage::getStoreConfig('bestsellingproduct/jqueryfile');
+$config2 = Mage::getStoreConfig('mdloption/featuredpro');
+$config3 = Mage::getStoreConfig('mdloption/mostpro');
+$config4 = Mage::getStoreConfig('mdloption/newpro');
+$config5 = Mage::getStoreConfig('mdloption/homeproducts');
+?>
+<!--content-->
+
+<div class="container zeroNine">
+    <!--Bestseller tabs-->
+    <?php if ($config['enable'] == 1): ?>
+        <div class="slider-box f-fix">
+            <?php echo $this->getLayout()->createBlock('bestseller/bestsellingproduct')->setTemplate('mdl-bestseller/bestsellingproduct.phtml')->toHtml(); ?>
+        </div>
+   
+    <?php endif; ?>
+    <!--End Bestseller tabs-->
+    <!--Altima hide new products-->
+    <!--New products-->
+    <?php if($config4['newsettings']==1):?>
+    <div class="slider-box f-fix">
+    <?php //echo $this->getLayout()->createBlock('catalog/product_list')->setTemplate('catalog/product/new.phtml')->toHtml(); ?>
+    </div>
+    <?php  endif;?>
+    <!--End New products-->
+    <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('catalog/carousel-categories.phtml')->toHtml(); ?>
+    <!--Featured category-->
+    <?php echo $this->getLayout()->createBlock('featuredcategory/categoryblock')->setTemplate('featuredcategory/featuredcat.phtml')->toHtml(); ?>
+    <!--End Featured category-->
+
+    <!--End Featured category-->
+    <div class="row">
+        <!--Featured products-->
+        <?php if ($config2['fpsettings'] == 1): ?>
+            <div class="col-sm-6">
+                <?php echo $this->getLayout()->createBlock('catalog/product_list')->setTemplate('catalog/product/featured.phtml')->toHtml(); ?>
+            </div>
+        <?php endif; ?>
+        <!--End Featured products-->
+        <!--Most popular products-->
+        <?php if ($config3['mpsettings'] == 1): ?>
+            <div class="col-sm-6">
+                <?php echo $this->getLayout()->createBlock('catalog/product_list')->setTemplate('catalog/product/most-popular.phtml')->toHtml(); ?>
+            </div>
+        <?php endif; ?>
+        <!--End Most popular products-->
+    </div> 
+</div>
+
+
+<?php echo $this->getLayout()->createBlock('catalog/product_list')->setTemplate('catalog/product/highlighter.phtml')->toHtml(); ?>
+
+<?php if ($config5['rfysetting'] == 1): ?>
+    <div class="container zeroNine">
+        <div class="slider-box f-fix">
+            <?php echo $this->getLayout()->createBlock('catalog/product_list')->setTemplate('catalog/product/rfy.phtml')->toHtml(); ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<!--end -->
+<!--Banner History Marcel Robert-->
+<div class=" f-fix new-banner-wrapper banner-home-history">
+    <div class="new-banner-caption">
+        <h1 class="new-banner-head"></h1>
+    </div>
+    <div class="new-banner-button">
+        <a href="/history-of-company"><?php echo $this->__('View history of the company'); ?></a>
+    </div>
+</div>
+
+<div class="f-fix">
+    <div class="container">
+        <div class="block-title">
+            <h2><span><?php echo $this->__('Only the best materials'); ?></span></h2>
+        </div>
+
+
+        <div class="products-attr-filter <?php if(Mage::getSingleton('cms/page')->getIdentifier() == 'simon_home_page') :  ?> marcel_home_page <?php endif ?>">
+            <!-- Call the attributes block -->
+			<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('marcel/attributes.phtml')->toHtml(); ?>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-lg-offset-1" style="margin-top: 50px;margin-bottom: 50px;">
+
+                <p>
+                    <?php echo $this->__(' We only work with the best and most expensive French-made leather. Master personally selects the skin at the
+                    plants that belong to the most famous fashion houses in France, such as Louis Vuitton and Hermès.'); ?>
+                </p>
+            </div>
+            <div class='col-lg-4 attr-link-to'
+                 style="margin-top: 50px;margin-bottom: 50px;text-align: center;"
+                 ><a href="<?php echo $this->getUrl('products.html'); ?>"><?php  echo $this->__('Pick up')  ?> </a></div>
+        </div>
+    </div>
+</div>
+<!-- Altima : Display 4 blocks under the attributes -->
+<div class="collage f-fix ">
+    <div class=""> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_4')->toHtml() ?> </div>
+</div>
+
+
+

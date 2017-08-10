@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<root>
+    <cms>
+        <pages>
+            <item>
+                <title>Simon Shop - Home Page</title>
+                <identifier>simon_home_page</identifier>
+                <content><![CDATA[
+					<div>{{block type="catalog/product_list" template="catalog/product/home.phtml"}}</div>
+                	]]>
+				</content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+								
+      </pages>
+		
+        <blocks>  
+			
+		
+			 <item>
+                <title>SS- Contact Info (Header Top)</title>
+                <identifier>bk-contact-info</identifier>
+                <content><![CDATA[
+					<ul class="contact-info">
+					<li><a title="+123-456-789" href="Tel:+123-456-789"><em class="fa fa-phone"><span>phone</span></em><span>+123-456-789</span></a></li>
+					<li><a title="info@SimonShop.com" href="mailto:info@simonshopmainator.com"><em class="fa fa-envelope"><span>mail</span></em><span>info@simonshop.com</span></a></li>
+					</ul>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+				
+			<item>
+                <title>SS-Product Custom Block On Right Side</title>
+                <identifier>product_custom_block</identifier>
+                <content><![CDATA[
+					<ul class="block pro-static-block">
+						<li>
+						<div class="f-left"><em class="fa fa-star">&nbsp;</em></div>
+						<p>There are many variations of passages</p>
+						</li>
+						<li>
+						<div class="f-left"><em class="fa fa-leaf">&nbsp;</em></div>
+						<p>There are many variations of passages</p>
+						</li>
+						<li>
+						<div class="f-left"><em class="fa fa-dot-circle-o">&nbsp;</em></div>
+						<p>There are many variations of passages</p>
+						</li>
+						<li>
+						<div class="f-left"><em class="fa fa-umbrella">&nbsp;</em></div>
+						<p>There are many variations of passages</p>
+						</li>
+						<li>
+						<div class="f-left"><em class="fa fa-gavel">&nbsp;</em></div>
+						<p>There are many variations of passages</p>
+						</li>
+					</ul>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-Contact Detail (Contact us page)</title>
+                <identifier>contactDetail</identifier>
+                <content><![CDATA[
+					<h2 class="legend">Address</h2>
+					<p><strong>Address:</strong> 8901 Marmora Road, Glasgow, D04 89GR</p>
+					<p><strong>Telephone:</strong> (800)2345-6789</p>
+					<p><strong>Fax:</strong> (800)2345-6789</p>
+					<p><strong>Mail:</strong> info@Simo Shop.com</p>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-Collage blocks</title>
+                <identifier>promotional_bottom_block_4</identifier>
+                <content><![CDATA[
+					<div class="col-md-6">
+					<div class="col-sm-12 staticBox-green">
+					<div class="colInside"><img alt="" src="{{skin url='images/static-block/collage_01.jpg'}}" />
+					<div class="collageInner">
+					<h3>Shoes</h3>
+					<p>Lorem ipsum dolor</p>
+					<a href="#">Know More</a></div>
+					</div>
+					</div>
+					<div class="col-sm-12 staticBox-orange">
+					<div class="colInside"><img alt="" src="{{skin url='images/static-block/collage_02.jpg'}}" />
+					<div class="collageInner">
+					<h3>Shoes</h3>
+					<p>Lorem ipsum dolor</p>
+					<a href="#">Know More</a></div>
+					</div>
+					</div>
+					</div>
+					<div class="col-md-6">
+					<div class="col-sm-12">
+					<div class="col-sm-6 staticBox-blue">
+					<div class="colInside"><img alt="" src="{{skin url='images/static-block/collage_03.jpg'}}" />
+					<div class="collageInner">
+					<h3>Shoes</h3>
+					<p>Lorem ipsum dolor</p>
+					<a href="#">Know More</a></div>
+					</div>
+					</div>
+					<div class="col-sm-6 staticBox-yellow">
+					<div class="colInside"><img alt="" src="{{skin url='images/static-block/collage_04.jpg'}}" />
+					<div class="collageInner">
+					<h3>Shoes</h3>
+					<p>Lorem ipsum dolor</p>
+					<a href="#">Know More</a></div>
+					</div>
+					</div>
+					</div>
+					<div class="col-sm-12 staticBox-pink">
+					<div class="colInside"><img alt="" src="{{skin url='images/static-block/collage_05.jpg'}}" />
+					<div class="collageInner">
+					<h3>Shoes</h3>
+					<p>Lorem ipsum dolor</p>
+					<a href="#">Know More</a></div>
+					</div>
+					</div>
+					</div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Promotional 3 bottom blocks  -(Bottom side with banner)</title>
+                <identifier>promotional_bottom_block_3</identifier>
+                <content><![CDATA[
+					<ul>
+						<li class="col-sm-4"><a title="" href="#"><img alt="" src="{{skin url="images/collection-img01.jpg"}}" /></a></li>
+						<li class="col-sm-4"><a title="" href="#"><img alt="" src="{{skin url="images/collection-img02.jpg"}}" /></a></li>
+						<li class="col-sm-4"><a title="" href="#"><img alt="" src="{{skin url="images/collection-img03.jpg"}}" /></a></li>
+					</ul>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Promotional 2 bottom blocks  -(Bottom side with banner)</title>
+                <identifier>promotional_bottom_block_2</identifier>
+                <content><![CDATA[
+					<ul>
+						<li class="col-sm-4"><a title="" href="#"><img alt="" src="{{skin url="images/collection-img21.jpg"}}" /></a></li>
+						<li class="col-sm-4"><a title="" href="#"><img alt="" src="{{skin url="images/collection-img22.jpg"}}" /></a></li>
+					</ul>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Promotional block on right side  -(Right side with main banner)</title>
+                <identifier>promotional_block_3_right</identifier>
+                <content><![CDATA[
+					<ul>
+						<li><a title="" href="#"><img alt="" src="{{skin url="images/sideright1.jpg"}}" /></a></li>
+						<li><a title="" href="#"><img alt="" src="{{skin url="images/sideright2.jpg"}}" /></a></li>
+						<li><a title="" href="#"><img alt="" src="{{skin url="images/sideright3.jpg"}}" /></a></li>
+					</ul>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			
+			<item>
+                <title>SS-Block Slider Left (Left column banner block)</title>
+                <identifier>block-slide-left</identifier>
+                <content><![CDATA[
+					<div id="slideLeft" class="jcarousel leftBanner">
+					<!--slide one-->
+					<div class="innerSlids">
+					<div class="block-title"><strong><span>1 Types of sliders</span></strong></div>
+					<a href="#"> <img alt="" src="{{skin url=images/bn3.jpg}}" /></a>
+					<p>All sliders are manageble by admin.</p>
+					</div>
+					<!--end slide one--> 
+					<!--slide two-->
+					<div class="innerSlids">
+					<div class="block-title"><strong><span>2 Types of sliders</span></strong></div>
+					<a href="#"> <img alt="" src="{{skin url=images/bn4.jpg}}" /></a>
+					<p>All sliders are manageble by admin.</p>
+					</div>
+					<!--end slide two--></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>WS-Block Slider Right (Right column banner block)</title>
+                <identifier>block-slide-right</identifier>
+                <content><![CDATA[
+					<div id="slideRight" class="jcarousel rightBanner">
+					<!--slide one-->
+					<div class="innerSlids">
+					<div class="block-title"><strong><span>1 Types of sliders</span></strong></div>
+					<a href="#"> <img alt="" src="{{skin url=images/bn1.jpg}}" /></a>
+					<p>All sliders are manageble by admin.</p>
+					</div>
+					<!--end slide one-->
+					<!--slide two-->
+					<div class="innerSlids">
+					<div class="block-title"><strong><span>2 Types of sliders</span></strong></div>
+					<a href="#"> <img alt="" src="{{skin url=images/bn2.jpg}}" /></a>
+					<p>All sliders are manageble by admin.</p>
+					</div>
+					<!--end slide two--></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-Payment Block</title>
+                <identifier>payment-box</identifier>
+                <content><![CDATA[
+					<h3>pay secure with</h3>
+					<div class="media-payment"><img alt="" src="{{skin url="images/payment.png"}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-About Us Block (Footer)</title>
+                <identifier>fo-about</identifier>
+                <content><![CDATA[
+					<h3>About us</h3>
+						<p>Duis autem vel eum iriure dolor in hend lputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eros et accumsan et iusto odio di ssim qui blandit atum zzril delenit augue duis dolore te feugait nulla facilisi.. read more.<a title="Read more" href="#">Read more...</a></p>
+						<h3 class="liveSupport"><span>call: +00 12 6999 5453</span> <span style="color: #878787;">for live support</span></h3>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Footer Links</title>
+                <identifier>fo-links</identifier>
+                <content><![CDATA[
+					<div class="links col-sm-4">
+					<ul>
+					<li><a title="Products" href="#">About Us</a></li>
+					<li><a title="Community" href="#">Customer Service</a></li>
+					<li><a title="Support" href="#">Privacy Policy</a></li>
+					<li><a title="Products" href="#">Discount</a></li>
+					<li><a title="Community" href="#">Gift Cards</a></li>
+					<li><a title="Support" href="#">My favorite products </a></li>
+					</ul>
+					</div>
+					<div class="links col-sm-4">
+					<ul>
+					<li><a title="Products" href="#">About Us</a></li>
+					<li><a title="Community" href="#">Customer Service</a></li>
+					<li><a title="Support" href="#">Privacy Policy</a></li>
+					<li><a title="Products" href="#">Discount</a></li>
+					<li><a title="Community" href="#">Gift Cards</a></li>
+					<li><a title="Support" href="#">My favorite products </a></li>
+					</ul>
+					</div>
+					<div class="links col-sm-4">
+					<ul>
+					<li><a title="Products" href="#">About Us</a></li>
+					<li><a title="Community" href="#">Customer Service</a></li>
+					<li><a title="Support" href="#">Privacy Policy</a></li>
+					<li><a title="Products" href="#">Discount</a></li>
+					<li><a title="Community" href="#">Gift Cards</a></li>
+					<li><a title="Support" href="#">My favorite products </a></li>
+					</ul>
+					</div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-product-static-box</title>
+                <identifier>product-static-box</identifier>
+                <content><![CDATA[
+					<div class="sidebarStatic"><img alt="" src="{{skin url='images/product_banner.jpg'}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-Left Column Static Block (Home page)</title>
+                <identifier>left-static-block-1</identifier>
+                <content><![CDATA[
+					<div class="sidebarStatic"><img alt="" src="{{skin url='images/product_banner.jpg'}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Right Column Static Block (Home page)</title>
+                <identifier>right-static-block-1</identifier>
+                <content><![CDATA[
+					<div class="sidebarStatic"><img alt="" src="{{skin url='images/product_banner.jpg'}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			<item>
+                <title>SS-Left Column Static Block (Category page)</title>
+                <identifier>category-left-static-block-01</identifier>
+                <content><![CDATA[
+					<div class="sidebarStatic"><img alt="" src="{{skin url='images/product_banner.jpg'}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Right Column Static Block (Category page)</title>
+                <identifier>category-right-static-block-01</identifier>
+                <content><![CDATA[
+					<div class="sidebarStatic"><img alt="" src="{{skin url='images/product_banner.jpg'}}" /></div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			
+			
+			<item>
+                <title>SS-Promotional 1 bottom block</title>
+                <identifier>one-bottom-block</identifier>
+                <content><![CDATA[
+					<div class="oneStaticBlock">
+					<div class="block-title">
+					<h2><span>Welcome to SIMON SHOP</span></h2>
+					</div>
+					<p>Simon Shop designed with focus on user experience and usability, to make Magento shopping easy &amp; quick Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur tempor ipsum, id varius est bibendum consectetur. In gravida et leo vel feugiat.</p>
+					</div>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-Footer contact info</title>
+                <identifier>fContact-info</identifier>
+                <content><![CDATA[
+					<h3>Contact Info</h3>
+					<p class="fcInfo">41 Queen Street, Apt. #4C, New York, NY, 10439 T: (000) 123-45-67 W: http://yoursitename.com E: info@yoursitename.com</p>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			<item>
+                <title>SS-header-social</title>
+                <identifier>header_social</identifier>
+                <content><![CDATA[
+					<p class="socialH">
+						<a href="#"><i class="fa fa-facebook-square"><sup>facebook</sup></i></a> 
+						<a href="#"><i class="fa fa-twitter-square"><sup>twitter</sup></i></a> 
+						<a href="#"><i class="fa fa-pinterest-square"><sup>pinterest</sup></i></a> 
+						<a href="#"><i class="fa fa-rss-square"><sup>rss</sup></i></a>
+					</p>
+				]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+			
+			
+			
+				
+        </blocks>
+    </cms>
+</root>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- app/code/local/Marcel/Attributes/config.xml -->
+<config>
+    <modules>
+        <Marcel_Attributes>
+            <version>1.0</version>
+        </Marcel_Attributes>
+    </modules>
+    <global>
+        <blocks>
+            <marcel_attributes>
+                <class>Marcel_Attributes_Block</class>
+            </marcel_attributes>
+        </blocks>
+    </global>
+    
+</config>
+

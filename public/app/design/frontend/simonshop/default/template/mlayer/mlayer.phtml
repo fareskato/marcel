@@ -1,0 +1,390 @@
+<?php
+$bannerCollection = $this->getBannerCollection();
+$i = 0;
+$config2 = Mage::getStoreConfig('mlayer/settings');
+$config3 = Mage::getStoreConfig('mdlmdlnavi/navsettings');
+?>
+
+<?php $bannerStatus = $this->getBannerStatus() ?>
+<?php $showdesc = $this->isShowDescription() ?>
+<?php $bannerContentPos = $this->getBannerContentPos() ?>
+<?php $contentHeight = $this->getContentHeight() ?>
+<?php $btntext = $this->getButtonText() ?>
+<?php $contentloder = $this->getContentloder() ?>
+<?php $contentPage = $this->getContentPage() ?>
+<?php $contentHover = $this->getContentHover() ?>
+<?php $effectbanner = $this->getEffectbanner() ?>
+<?php if ($bannerStatus == '1'): ?>
+    <?php if (!count($bannerCollection)): ?>
+        <div class="f-fix"><div class="no-banner container"><?php echo $this->__('Please upload banner'); ?></div></div>
+    <?php else: ?>
+        <?php if ($contentloder == '1'): ?>
+            <?php $loderClass = 'bar'; ?>
+        <?php elseif ($contentloder == '2'): ?>
+            <?php $loderClass = 'pie'; ?>
+        <?php endif; ?>
+
+        <!--FULL WIDTH BANNER START-->
+        <?php if ($config2['bannerType'] == 1): ?>
+
+            <!-- Slider full screen -->
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/supersized.shutter.css'); ?>" media="all" />
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/supersized.css'); ?>" media="all" />
+            <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/supersized.3.2.7.min.js'); ?>"></script> 
+            <?php if ($config3['nav-fix']): ?>
+                <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.sticky.js'); ?>"></script> 
+            <?php endif; ?>
+            <script>
+                jQuery(function ($) {
+
+                    $.supersized({
+                        // Functionality
+                        slideshow: 1, // Slideshow on/off
+                        autoplay: <?php echo(($config2['full_autoplay'] == 1) ? '1' : '0'); ?>, // Slideshow starts playing automatically
+                        start_slide: 1, // Start slide (0 is random)
+                        stop_loop: 0, // Pauses slideshow on last slide
+                        random: 0, // Randomize slide order (Ignores start slide)
+                        slide_interval: 4000, // Length between transitions
+                        transition: 1, // 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+                        transition_speed: 1000, // Speed of transition
+                        new_window: 1, // Image links open in new window/tab
+                        pause_hover: <?php echo (($config2['full_stop_hover'] == 1) ? '1' : '0'); ?>, // Pause slideshow on hover
+                        keyboard_nav: 1, // Keyboard navigation on/off
+                        performance: 1, // 0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
+                        image_protect: 1, // Disables image dragging and right click with Javascript
+
+                        min_width: 0, // Min width allowed (in pixels)
+                        min_height: 0, // Min height allowed (in pixels)
+                        vertical_center: 1, // Vertically center background
+                        horizontal_center: 1, // Horizontally center background
+                        fit_always: 0, // Image will never exceed browser width or height (Ignores min. dimensions)
+                        fit_portrait: 1, // Portrait images will not exceed browser height
+                        fit_landscape: 0, // Landscape images will not exceed browser width
+
+                        slide_links: 'blank', // Individual links for each slide (Options: false, 'num', 'name', 'blank')
+                        thumb_links: 0, // Individual thumb links for each slide
+                        thumbnail_navigation: 0, // Thumbnail navigation
+                        slides: [
+            <?php foreach ($bannerCollection as $slide) { ?>
+                                {image: '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $slide['filename'] ?>', title: '<?php echo $slide['title'] . '<div class="slidedescription">' . $slide['content'] . '</div><span class="btnBox"><a class="bannerBtn" href="' . Mage::getBaseUrl() . $slide['weblink'] . '">' . $btntext . '</a></span>'; ?>'
+                                    , thumb: '', url: '#'},
+            <?php } //end foreach  ?>
+                        ],
+                        progress_bar: 0, // Timer for each slide							
+                        mouse_scrub: 0
+
+                    });
+
+                    /*----------------------------------------------------*/
+                    /* FULLSCREEN IMAGE HEIGHT
+                     /*----------------------------------------------------*/
+                    function mdlFullScreen() {
+                        window_height = jQuery(window).height();
+                        jQuery('.fullscreen').css({height: window_height});
+                    }
+                    mdlFullScreen();
+                    jQuery(window).resize(function () {
+                        mdlFullScreen();
+                    });
+
+
+
+                });
+            </script> 
+
+            <?php if ($config2['full_show_des'] == 1): ?>
+                <div class="slider-text f-fix clearfix">
+                    <div class="container" style="position:relative;">
+                        <div class="col-sm-12">
+                            <div id="slidecaption"></div>
+                        </div>
+                        <?php if ($config2['full_show_nav'] == 1): ?>					
+                            <div class="col-sm-12" style="position:static;">
+                                <a id="prevslide" class="load-item"><i class="fa fa-angle-left"></i></a>
+                                <a id="nextslide" class="load-item"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>	
+
+
+
+            <!--CAMERA BANNER START-->
+        <?php elseif ($config2['bannerType'] == 2): ?>
+            <?php
+            $effect = '';
+            switch ($effectbanner) {
+                case 1:
+                    $effect = 'random';
+                    break;
+                case 2:
+                    $effect = 'simpleFade';
+                    break;
+                case 3:
+                    $effect = 'curtainTopLeft';
+                    break;
+                case 4:
+                    $effect = 'curtainTopRight';
+                    break;
+                case 5:
+                    $effect = 'curtainBottomLeft';
+                    break;
+                case 6:
+                    $effect = 'curtainBottomRight';
+                    break;
+                case 7:
+                    $effect = 'curtainSliceLeft';
+                    break;
+                case 8:
+                    $effect = 'curtainSliceRight';
+                    break;
+                case 9:
+                    $effect = 'blindCurtainTopLeft';
+                    break;
+                case 10:
+                    $effect = 'blindCurtainTopRight';
+                    break;
+                case 11:
+                    $effect = 'blindCurtainBottomLeft';
+                    break;
+                case 12:
+                    $effect = 'blindCurtainBottomRight';
+                    break;
+                case 13:
+                    $effect = 'blindCurtainSliceBottom';
+                    break;
+                case 14:
+                    $effect = 'blindCurtainSliceTop';
+                    break;
+                case 15:
+                    $effect = 'stampede';
+                    break;
+                case 16:
+                    $effect = 'mosaic';
+                    break;
+                case 17:
+                    $effect = 'mosaicReverse';
+                    break;
+                case 18:
+                    $effect = 'mosaicRandom';
+                    break;
+                case 19:
+                    $effect = 'mosaicSpiral';
+                    break;
+                case 20:
+                    $effect = 'mosaicSpiralReverse';
+                    break;
+                case 21:
+                    $effect = 'topLeftBottomRight';
+                    break;
+                case 22:
+                    $effect = 'topLeftBottomRight';
+                    break;
+                case 23:
+                    $effect = 'bottomRightTopLeft';
+                    break;
+                case 24:
+                    $effect = 'bottomLeftTopRight';
+                    break;
+                case 25:
+                    $effect = 'bottomLeftTopRight';
+                    break;
+                default:
+                    $effect = 'random';
+                    break;
+            }
+            ?>
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/banner2.css'); ?>" media="all" />
+            <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/camera.css'); ?>" media="all" />
+            <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/camera.js'); ?>"></script> 
+            <script>
+                jQuery(function () {
+                    jQuery('#camera_wrap_4').camera({
+                        height: '<?php echo $contentHeight; ?>%',
+                        loader: '<?php echo $loderClass; ?>',
+                        pagination:<?php if ($contentPage == '1'): ?><?php echo 'true' ?><?php else: ?><?php echo 'false' ?><?php endif; ?>,
+                        thumbnails: false,
+                        fx: '<?php echo $effect; ?>',
+                        hover:<?php if ($contentHover == '1'): ?><?php echo 'true' ?><?php else: ?><?php echo 'false' ?><?php endif; ?>,
+                        autoAdvance: 1,
+                        time: 7000,
+                        transPeriod: 400,
+                        imagePath: '../images/'
+                    });
+                });
+            </script> 
+            <!-- Slider --> 
+
+            <!--banner content static block content-->
+            <div class="f-fix">
+                <!--<div class="camera_wrap camera_emboss pattern_1 <?php //echo $config2['hide_banner'] ? 'hideBanner' : '' ?>" id="camera_wrap_4">-->
+            <?php //$i = 0;
+            //foreach ($bannerCollection as $banner): $i++; ?>
+                        <?php// if ($banner['contentpos'] == '1'): ?>
+                            <?php //$contentClass = 'contentPos-left'; ?>
+                        <?php // elseif ($banner['contentpos'] == '2'): ?>
+                            <?php //$contentClass = 'contentPos-right'; ?>
+                        <?php //elseif ($banner['contentpos'] == '3'): ?>
+                            <?php //$contentClass = 'contentPos-center'; ?>
+                        <?php //endif; ?>
+                        <!--<div data-thumb="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename'] ?>" data-src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename'] ?>">-->
+                            <?php //if ($showdesc == '1'): ?>
+                                <!--<div class="fadeIn camera_effected <?php// echo $contentClass; ?>">-->
+                                    <!--<h2><?php //echo $banner['title'] ?></h2>-->
+                                    <!--<p><?php //echo $banner['content']; ?></p>-->
+                                    <?php //if ($btntext): ?>
+                                        <!--<a class="btn-cart" href="<?php// echo Mage::getBaseUrl() . $banner['weblink']; ?>"> <span><span><?php //echo $btntext; ?></span></span> </a>-->
+                                    <?php //endif; ?>
+                                <!--</div>-->
+                            <?php //endif; ?>
+                        <!--</div>-->
+                    <?php //endforeach; ?>
+                </div>
+                <div class=" f-fix new-banner-wrapper">
+                    <!--Exclusive leather accessories Marcel Robert-->
+                    <div class="new-banner-caption">
+                        <h1 class="new-banner-head"><?php echo $this->__('Exclusive leather') ?></h1>
+                        <h1 class="new-banner-head"><?php echo $this->__('accessories Marcel Robert') ?></h1>                        
+                    </div>
+                    <div class="new-banner-button">
+                        <?php $category = Mage::getModel('catalog/category')->load(14); ?>
+                        <a href="<?php echo $this->getUrl('products.html'); ?>"><?php echo $this->__('View all accessories') ?></a>
+                    </div>
+                </div>
+            
+
+            <!--Static block-->
+            <?php if ($config2['home-page-option'] == 1): ?>
+                <div class="collage f-fix hidden-block">
+                    <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_4')->toHtml() ?> </div>
+                </div>
+                <?php if ($config2['home-page-option'] == 2): ?>
+                    <div class="f-fix">
+                        <div class="promoBox f-fix">
+                            <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_3')->toHtml() ?> </div>
+                        </div>
+                    </div>
+
+                    <?php
+                    // set the home page option = 3
+                elseif ($config2['home-page-option'] = 3):
+                    ?>
+                    <div class="f-fix">
+                        <div class="promoBox f-fix">
+                            <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_2')->toHtml() ?> </div>
+                        </div>
+                    </div>
+
+                <?php elseif ($config2['home-page-option'] == 4): ?>
+
+                    <div class="f-fix">
+                        <div class="promoBox f-fix">
+                            <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('one-bottom-block ')->toHtml() ?> </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!--Static block end --> 
+
+                <!--OWL BANNER START-->
+            <?php else: ?>
+                <!--option start-->
+                <link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('css/animate.css'); ?>" media="all" />
+                <?php if (($config2['homeBlock'] == 1) || ($config2['homeBlock'] == 2) || ($config2['homeBlock'] == 3) || ($config2['homeBlock'] == 4)): ?>
+                    <div class="f-fix">
+                        <div class="container mainOwlBanner">
+                            <div id="owlBanner" class="owl-carousel owl-theme">
+                                <?php $i = 0;
+                                foreach ($bannerCollection as $banner): $i++; ?>
+                                    <div class="banner_item"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename'] ?>">
+                                        <div class="owlContent <?php echo $config2['owl_position']; ?>">
+                                            <h3><?php echo $banner['title'] ?></h3>
+                                            <p><?php echo $banner['content'] ?></p>
+                                            <a class="owlBtn" href="<?php echo Mage::getBaseUrl() . $banner['weblink']; ?>"><?php echo $btntext; ?></a>
+                                        </div>
+
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>    
+                    </div> 
+
+                    <!--Static block-->
+                    <?php if ($config2['homeBlock'] == 1): ?>
+                        <div class="collage f-fix">
+                            <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_4')->toHtml() ?> </div>
+                        </div>
+                    <?php elseif ($config2['homeBlock'] == 2): ?>
+                        <div class="f-fix">
+                            <div class="promoBox f-fix">
+                                <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_3')->toHtml() ?> </div>
+                            </div>
+                        </div>
+                    <?php elseif ($config2['homeBlock'] == 3): ?>
+                        <div class="f-fix">
+                            <div class="promoBox f-fix">
+                                <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_bottom_block_2')->toHtml() ?> </div>
+                            </div>
+                        </div>
+                    <?php elseif ($config2['homeBlock'] == 4): ?>
+                        <div class="f-fix">
+                            <div class="promoBox f-fix">
+                                <div class="container"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('one-bottom-block ')->toHtml() ?> </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <!--Static block end -->
+
+                    <!--end option start-->
+
+                    <!--option start-->
+                <?php else: ?>
+                    <div class="f-fix">
+                        <div class="container mainOwlBanner staticRight">
+                            <div class="col-sm-9">
+                                <div id="owlBanner" class="owl-carousel owl-theme">
+                                    <?php $i = 0;
+                                    foreach ($bannerCollection as $banner): $i++; ?>
+                                        <div class="banner_item"><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $banner['filename'] ?>">
+                                            <div class="owlContent <?php echo $config2['owl_position']; ?>">
+                                                <h3><?php echo $banner['title'] ?></h3>
+                                                <p><?php echo $banner['content'] ?></p>
+                                                <a class="owlBtn" href="<?php echo Mage::getBaseUrl() . $banner['weblink']; ?>"><?php echo $btntext; ?></a>
+                                            </div>
+
+                                        </div>
+                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 staticRightBlock">
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('promotional_block_3_right')->toHtml() ?>
+                            </div>
+                        </div>    
+                    </div> 
+                <?php endif; ?>
+
+                <script>
+                    jQuery(document).ready(function () {
+                        jQuery("#owlBanner").owlCarousel({
+                            animateOut: '<?php echo $config2['owl_animateOut']; ?>',
+                            animateIn: '<?php echo $config2['owl_animateIn']; ?>',
+                            loop:<?php echo (($config2['owl_banner_loop'] == '1') ? 'true' : 'false'); ?>,
+                            items: 1,
+                            autoplay:<?php echo (($config2['owl_autoplay'] == '1') ? 'true' : 'false'); ?>,
+                            autoplayTimeout:<?php echo $config2['owl_autoplayTime']; ?>,
+                            autoHeight:<?php echo (($config2['owl_height'] == '1') ? 'true' : 'false'); ?>,
+                            nav:<?php echo (($config2['owl_nav'] == '1') ? 'true' : 'false'); ?>,
+                            navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                            smartSpeed:<?php echo $config2['owl_bannerspeed']; ?>,
+                            stagePadding: 0
+
+                        });
+                    });
+                </script>
+
+            <?php endif; ?>
+        <?php endif; ?>	
+    <?php endif; ?>
+<?php endif; ?>
+

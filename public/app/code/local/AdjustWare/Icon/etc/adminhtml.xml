@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<config>
+		<menu>
+		    <catalog>
+                <children>
+                    <attributes>
+                        <children>
+                            <adjicon translate="title" module="adjicon">
+                                <title>Visualize Your Attributes</title>
+                                <sort_order>300</sort_order>
+                                <action>adjicon/adminhtml_icon</action>
+                            </adjicon>
+                        </children>
+                    </attributes>
+                </children>
+            </catalog>
+		</menu>
+		
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+            		    <catalog>
+                            <children>
+                                <attributes>
+                                    <children>
+                                        <adjicon translate="title" module="adjicon">
+                                            <title>Visualize Your Attributes</title>
+                                            <sort_order>300</sort_order>
+                                        </adjicon>
+                                    </children>
+                                </attributes>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+</config>
+
+<!--
+/**
+ * Visualize Your Attributes - Color Swatch
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Icon
+ * @version      3.1.15
+ * @license:     hlC9gt9cdSBrS26S2Ln1ysO97rKL4VLtOdRx2Aycga
+ * @copyright:   Copyright (c) 2015 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

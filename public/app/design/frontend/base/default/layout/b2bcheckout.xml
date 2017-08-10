@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+	<checkout_onepage_index>
+		<reference name="content">
+			<block type="core/template" template="b2bcheckout/skip.phtml" name="b2bcheckout" />
+		</reference>
+	</checkout_onepage_index>
+</layout>

@@ -1,0 +1,88 @@
+<?php
+	$config = Mage::getStoreConfig('mdloption/footerpan');
+	if (Mage::getStoreConfig('magiclogo/general/magiclogoenabled') == "1"):         
+    $brandModel = Mage::getModel('magiclogo/magiclogo')->getCollection()->addFieldToFilter('status', 1);
+    if (count($brandModel) > 0):
+?>
+<div class="logBox f-fix">
+<div class="container brands-container">
+
+<div class="block-title">
+  <h2>
+      <?php  echo Mage::getStoreConfig('magiclogo/general/logotitle');?> 
+      </h2>
+</div>
+    <div class="brand-text">
+        <div class="brand-paragraph col-lg-8 col-lg-offset-2">
+            <?php echo $this->__('We work with manufacturers of skin cool and well-known companies, who appreciate the quality and history of the product and so on.'); ?>
+        </div>
+        <div class="clear-fix"></div>
+</div>
+
+ <?php if (Mage::getStoreConfig('magiclogo/general/magiclogoenabled')=="1") : ?>     
+    <?php endif; ?>
+	<div class="jcarousel-wrapper">
+        <div class="jcarousel scroller-brand">
+               
+        <?php
+             $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "magiclogo";
+             foreach ($brandModel as $k => $v) {
+        ?>
+		
+		<?php $store_id = Mage::app()->getStore()->getStoreId(); $magiclogoId=$v->getStoreId();	$storeIds=explode(",",$magiclogoId); if(in_array($store_id,$storeIds) || in_array(0,$storeIds)):?>
+        <div class="logopan">
+        	<a href="<?php echo $v->getUrl(); ?>">
+            	<img src="<?php echo $imageUrl . $v->getFilename(); ?>" alt="<?php echo $v->getTitle(); ?>" title="<?php echo $v->getTitle(); ?>" />
+            </a>		        
+        </div>		 <?php endif; ?>
+        <?php
+       }?>
+       </div>
+             
+</div>
+
+
+
+
+</div>
+</div>
+<script type="text/javascript">
+			(function($) {	
+			$('.scroller-brand').owlCarousel({
+					loop:true,
+					smartSpeed: 500,
+					dots: false,
+					dotsContainer: false,
+					margin:10,
+					navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>" ],
+					responsiveClass:true,
+					<?php if (Mage::getStoreConfig('magiclogo/general/enableautoslide') == 1):?>
+					autoplay: true,
+					autoplayTimeout: 5000,
+					<?php endif;?>
+					responsive:{
+						0:{
+							items:2,
+							nav: true
+						},
+						600:{
+							items:4,
+							nav: true
+						},
+						1000:{
+							items:6,
+							nav: true,
+							loop:true
+						}
+					}
+				})
+			
+			
+				
+			})(jQuery);			
+		</script>
+
+        
+        
+<?php endif; ?>
+<?php endif; ?>

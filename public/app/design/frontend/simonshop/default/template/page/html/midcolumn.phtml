@@ -1,0 +1,73 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php echo $this->getLayout()->createBlock('mdlblog/mdlblog')->setTemplate('magic_mdlblog/mdlblog_home.phtml')->toHtml();?>
+<div class="f-fix bottom-full-static">
+	<div class="container">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('bottom-full-static')->toHtml() ?>
+	</div>
+</div>
+<?php echo $this->getLayout()->createBlock('magiclogo/magiclogo')->setTemplate('magiclogo/magiclogo.phtml')->toHtml();?>
+<?php if($config['footer-option']==1):?>
+<section class="footer-wrapper footer01">
+	<div class="f-fix footer-top">
+    	<div class="container">
+        	<div class="span3 about-block">
+            	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer-about-block')->toHtml() ?>
+            </div>
+            <div class="span3 tweet-block">
+                <div class="block-title"><h2><span><?php echo $this->__('Latest Tweets');?></span></h2></div>
+                <?php //echo $this->getLayout()->createBlock('latesttweet/latesttweet')->setTemplate('creare/latesttweet/blank.phtml')->toHtml(); ?>
+                
+
+            </div>
+            <div class="span3  fb-block">
+	            <div class="block-title"><h2><span><?php echo $this->__('Find us on Facebook');?></span></h2></div>
+                <div class="block-content">
+                    <?php $config = Mage::getStoreConfig('mdloption/facebooksetting'); ?>
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+                </script>
+                <div class="fb-like-box" 
+                data-href="https://www.facebook.com/<?php if($config['facebookuser']==true):?><?php echo $config['facebookuser']; ?><?php else: ?><?php echo 'imdb';?><?php endif; ?>" 
+                data-colorscheme="light" 
+                data-show-faces="true" 
+                data-header="false" 
+                data-stream="false" 
+                data-show-border="false">
+                </div>
+                </div>
+            </div>
+    	</div>
+	</div>
+</section>
+<?php endif;?>

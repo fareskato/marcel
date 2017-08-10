@@ -1,0 +1,71 @@
+<?php
+ $config = Mage::getStoreConfig('mdloption/footerpan');
+if (Mage::getStoreConfig('mdltestimonials/general/mdltestimonialsenabled') == "1"):         
+    $brandModel = Mage::getModel('mdltestimonials/mdltestimonials')->getCollection()->addFieldToFilter('status', 1);
+    if (count($brandModel) > 0):
+?>
+
+<section class="testimonial-wrapper">
+  <h3><?php echo Mage::getStoreConfig('mdltestimonials/general/testimonialstitle');?></h3>	
+  <div class="jcarousel-wrapper">
+    <div class="jcarousel">
+      <div id="owl-demo5" class="scroller-testimonial">
+        <?php
+        $imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "mdltestimonials" ;
+        foreach ($brandModel as $k => $v) {
+        $pi = pathinfo($v->getFilename());
+        if (Mage::getStoreConfig('mdltestimonials/general/mdltestimonialsresizeenabled') == 1) {
+        $fileThumb = $imageUrl .'/'.$pi['filename'].'_thumb.'.$pi['extension'];	   
+        } else{
+        $fileThumb = $imageUrl .'/'.$pi['filename'].'.'.$pi['extension'];
+        }
+        
+        ?>
+		
+		<?php				$store_id = Mage::app()->getStore()->getStoreId();				$mdltestiId=$v->getStoreId();								$storeIds=explode(",",$mdltestiId);				if(in_array($store_id,$storeIds) || in_array(0,$storeIds)) :		?>
+        <div class="testimonialPan">
+          <p> " <?php echo $v->getContent(); ?> " </p>
+          <span class="author"><?php echo $v->getAuthor(); ?></span> 
+         </div>		 <?php endif; ?>
+        <?php
+        }?>
+      </div>
+    </div>
+    </div>
+</section>
+	<script type="text/javascript">
+		(function($) {	
+
+		$('.scroller-testimonial').owlCarousel({
+		loop:true,
+		lazyLoad:true,
+		smartSpeed: 500,
+		dots: false,
+		dotsContainer: false,
+		navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>" ],
+		responsiveClass:true,
+		<?php if (Mage::getStoreConfig('mdltestimonials/general/enableautoslide') == 1):?>
+		autoplay: true,
+		autoplayTimeout: 5000,
+		<?php endif;?>
+		responsive:{
+		0:{
+		items:1,
+		nav: true
+		},
+		600:{
+		items:1,
+		nav: true
+		},
+		1000:{
+		items:1,
+		nav: true,
+		loop:true
+		}
+		}
+		})
+
+	})(jQuery);			
+	</script>
+<?php endif; ?>
+<?php endif; ?>

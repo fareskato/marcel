@@ -1,0 +1,87 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+<div class="account-login">
+ 	<?php $config = Mage::getStoreConfig('mdloption/genral_theme_setting'); ?>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="login-form">
+    	<?php echo $this->getBlockHtml('formkey'); ?>
+			<div class="login_box">
+				<div class="login-logo">
+					<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+					<?php if($config['logo_img']==true):?>
+						<img src="<?php  echo Mage::getBaseUrl('media') . 'logo/' .$config['logo_img'];?>" alt="<?php echo $this->getLogoAlt() ?>" />
+					<?php else:?>
+						<img src="<?php echo $this->getSkinUrl('images/logo.png');?>"/>	
+					<?php endif;?>   
+					</a>
+				</div>
+				<h2><span></span><?php echo $this->__('Customer Login') ?></h2>
+				<ul class="form-list">
+                        <li class="">
+                            <div class="input-box unlock-block">
+                            	<span class="userName"></span>
+                                <input type="text" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" placeholder="<?php echo $this->__('Email Address') ?>" />
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-box key">
+                            	<span class="passWord"></span>
+                                <input placeholder="<?php echo $this->__('Password') ?>" type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
+                            </div>
+                        </li>
+						<li class="control">
+							<span><input type="checkbox" class="checkbox"  /> <label><?php echo $this->__('Keep me logged in');?></label></span>
+						</li>
+						<li class="last"><button type="submit" class="button" title="<?php echo $this->__('Login') ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button></li>
+                        <?php echo $this->getChildHtml('form.additional.info'); ?>
+                        <?php echo $this->getChildHtml('persistent.remember.me'); ?>
+                    </ul>
+		</div>
+		<div class="f-block">
+			<a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left link"><?php echo $this->__('Forgot Your Password?') ?></a>
+			<button type="button" title="<?php echo $this->__('Create an Account') ?>" class="link right" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+					</div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('login-form', true);
+    //]]>
+    </script>
+</div>
+<div class="clearfix"></div>

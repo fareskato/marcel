@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<layout verion="0.1.0">
+    <adjicon_adminhtml_icon_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjadmin.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjcolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjiconcolor.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+    </adjicon_adminhtml_icon_edit>
+    <adjicon_adminhtml_icon_new>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjadmin.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjcolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjiconcolor.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+    </adjicon_adminhtml_icon_new>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+        </reference>
+    </adminhtml_system_config_edit>
+    <adminhtml_catalog_product_configurable>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjgallery.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+        <reference name="product_tabs">
+            <action method="addTab"><name>visualize_tab</name><block>adjicon/adminhtml_catalog_product_edit_tabs_images</block></action>
+        </reference>
+    </adminhtml_catalog_product_configurable>
+</layout>
+<!--
+/**
+ * Visualize Your Attributes - Color Swatch
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Icon
+ * @version      3.1.15
+ * @license:     hlC9gt9cdSBrS26S2Ln1ysO97rKL4VLtOdRx2Aycga
+ * @copyright:   Copyright (c) 2015 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

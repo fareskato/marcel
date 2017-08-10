@@ -1,0 +1,316 @@
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<?php $config = Mage::getStoreConfig('mdloption/product-type-option'); ?>
+<?php if ($config['product-view-option'] != 2): ?>
+    <?php $classnNum = 'col-md-9' ?>
+<?php else: ?>
+    <?php $classnNum = 'col-md-12' ?>
+<?php endif; ?>
+<?php
+// Get the current produt name.
+$currentproduct = Mage::registry('current_product');
+$current_product_name =  $currentproduct->getName();
+?>
+<div id="marcel-product-name">
+    <h1><?php echo $current_product_name;  ?></h1>
+</div>
+<!-- Altima : Add video and image block if the product category = Iphone -->
+<?php
+$categoryIds = $_product->getCategoryIds();
+
+if (count($categoryIds)):
+
+    $CategoryId = $categoryIds[count($categoryIds)-1];
+    $_category = Mage::getModel('catalog/category')->load($CategoryId);
+    $path = $_category->getPath();
+    $locale = Mage::app()->getStore()->getLocaleCode();
+
+    if (strpos($path, '/9') !== false || strpos($path, '/10') !== false || strpos($path, '/11') !== false ) : //strtolower($_category->getName()) == 'iphone'):
+        $videoId = ($locale == 'fr_FR') ? 'dJT7Txea9Ms' : 'DBNLHpidLUI';
+        $videoId = ($locale == 'de_DE') ? 'SpYfi7ZuA1s' : $videoId;
+
+        ?>
+        <div id="product-video" class="<?php echo $classnNum; ?>">
+            <div class="col-sm-8">
+                <div class=" video-block-header"><h1><?php echo $this->__('Video instructions for use') ?></h1></div>
+                <!--
+                <iframe width="720" height="360" src="http://www.youtube.com/embed/<?php echo $videoId; ?>?autoplay=0&autohide=1&controls=1&loop=0&playlist&rel=0&fs=1&wmode=transparent&showinfo=0&modestbranding=1&iv_load_policy=1&start=0&enablejsapi=1&theme=dark&color=red&playsinline=false&enablejsapi=1&origin=http%3A%2F%2Fmarcel-robert.com" frameborder="0" allowfullscreen></iframe>
+                -->
+                <div id="ytplayer" style="max-width: 720px; max-height: 360px;"></div>
+            </div>
+            <div class="col-sm-4 iphone-image">
+                <img src="<?php echo $this->getSkinUrl('images/cover-cat.png') ?>" alt="Iphone"/>
+            </div>
+        </div>
+
+
+
+        <script>
+
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            var player;
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('ytplayer', {
+                    maxhHeight: '360',
+                    width: '100%',
+                    videoId: '<?php echo $videoId; ?>',
+                    playerVars: {
+                        rel:'0'
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+
+
+
+            function onPlayerReady(event) {
+                event.target.setVolume(0);
+                event.target.playVideo();
+            }
+
+
+            var done = false;
+            function onPlayerStateChange(event) {
+
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+                    done = true;
+                }
+                event.target.setVolume(0);
+            }
+        </script>
+    <?php
+    endif;
+endif;
+
+?>
+<!-- end video block -->
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="row">
+    <!--test start-->
+    <?php  
+
+
+    ?>
+    <!--test end-->
+    
+   <!--<div class="product-name">-->
+      <!--<h1>-->
+      <?php  //echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>                                        
+      <!--</h1>-->
+    <!--</div>-->
+    <div class="color-leather-attr col-lg-12">
+        <span class="product-color"><?php echo $_product->getAttributeText('color');?></span>
+        <span class="product-material"><?php echo $_product->getAttributeText('material');?></span>
+        <div class="product-name"></div>        
+    </div>
+    <div class="product-view <?php echo $classnNum; ?>">
+        <div class="product-essential">
+            <div class="row">
+                <div class="product-img-box-view <?php if ($config['product-view-option'] == 2): ?> col-sm-7<?php else: ?>col-sm-5<?php endif; ?>">
+                    <?php echo $this->getChildHtml('media') ?>
+                </div>
+                <div class="productDetailBox <?php if ($config['product-view-option'] == 2): ?> col-sm-5<?php else: ?>col-sm-7<?php endif; ?>">
+                    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                        <div class="no-display">
+                            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                            <input type="hidden" name="related_product" id="related-products-field_1" value="" />
+                        </div>
+                        <div class="product-shop">
+                            <div class="product_left f-fix">
+                                <div class="nextPre">
+                                    <?php if ($url <> $prev_url): ?>
+                                        <a  rel="tooltip" data-placement="left" title="<?php echo $this->__('Previous Product') ?>" class="prod-prev jcarousel-control-prev" href="<?php echo $next_url; ?>"><i class="fa fa-angle-left"></i></a>
+                                    <?php endif; ?>
+                                    <?php if ($url <> $next_url): ?>
+                                        <a class="prod-next jcarousel-control-next" rel="tooltip" data-placement="right" title="<?php echo $this->__('Next Product') ?>" href="<?php echo $prev_url; ?>"><i class="fa fa-angle-right"></i></a>
+                                    <?php endif; ?>
+                                </div> 
+
+                                <div class="extra-info">
+                                    <?php echo $this->getChildHtml('product_type_availability'); ?>
+                                    <div class="review"> <?php echo $this->getReviewsSummaryHtml($_product, false, true) ?> </div>
+                                </div>
+
+                                <?php if ($_product->getShortDescription()): ?>
+                                    <div class="short-description">
+                                        <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                                    </div>
+                                <?php endif; ?>
+                                <h4><?php echo $this->__('REF : ') . $this->htmlEscape($_product->getData('sku'));?></h4>
+                                <?php $SizeChartUrl = Mage::getBaseUrl('media') . 'catalog/product/' . $_product->getMdlSizeChart(); ?>
+                                <?php if ($_product->getMdlSizeChart() != '' && $_product->getMdlSizeChart() != 'no_selection'): ?>
+                                    <div class="sizeChartBox">
+                                        <a class="sizeChart" rel="example_group" href="<?php echo $SizeChartUrl; ?>"><?php echo $this->__('Size Chart'); ?></a>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="pro-left">
+                                    <div class="add_to_cart <?php if ($this->hasOptions()): ?>optionB<?php endif; ?>">
+                                        <?php if (!$this->hasOptions()): ?>
+                                            <div class="add-to-box">
+                                                <?php if ($_product->isSaleable()): ?>
+                                                    <?php echo $this->getChildHtml('addtocart') ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php echo $this->getChildHtml('other'); ?>
+
+                                        <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                                            <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                                        <?php endif; ?>
+
+                                        <?php if ($_product->isSaleable() && $this->hasOptions()): ?>
+                                            <?php echo $this->getChildChildHtml('container2', '', true, true); ?>
+                                        <?php endif; ?>
+
+                                        <div class="price_box">
+                                            <?php echo $this->getPriceHtml($_product); ?>
+                                            <?php echo $this->getChildHtml('bundle_prices') ?>
+                                            <?php echo $this->getTierPriceHtml() ?>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="f-fix sbox">
+                                        <?php echo $this->getChildHtml('extrahint') ?>
+                                        <?php if ($this->helper('wishlist')->isAllow() || $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+                                        <?php endif; ?>
+                                        <?php echo $this->getChildHtml('addto') ?>
+                                        <div class="mailRev">
+
+                                            <?php //echo $this->getChildHtml('sharing') ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="product-collateral" id="tabs">
+                <?php echo $this->getChildHtml('info_tabs') ?>
+            </div>
+        </div>
+    </div>
+    <?php if ($config['product-view-option'] != 2 && $config['product-view-option'] != 3): ?>
+        <div class="product_right col-md-3 sidebar">
+            <?php $config = Mage::getStoreConfig('mdloption/upsellsetting'); ?>
+            <?php if ($config['upsellblocks'] == 1): ?>
+                <?php echo $this->getChildHtml('upsell_products'); ?>
+            <?php elseif ($config['upsellblocks'] == 2): ?>
+                <?php if ($_product->getUpsellProducts()): ?>
+                    <?php echo $this->getChildHtml('upsell_products'); ?>
+                <?php else: ?>
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_custom_block')->toHtml() ?>
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('productBanner')->toHtml() ?>
+                <?php endif ?>
+            <?php elseif ($config['upsellblocks'] == 3): ?>
+                <?php echo $this->getChildHtml('upsell_products'); ?>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_custom_block')->toHtml() ?>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('productBanner')->toHtml() ?>
+            <?php endif; ?>
+            <div class="staticSidebar">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product-static-box')->toHtml() ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php if ($config['product-view-option'] == 2): ?>
+    <?php echo $this->getChildHtml('upsell_products'); ?>
+<?php endif; ?>
+
+<?php //echo $this->getChildHtml('upsell_products'); ?>
+<?php //echo $this->getChildHtml('related');    ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var productAddToCartForm = new VarienForm('product_addtocart_form');
+    productAddToCartForm.submit = function (button, url) {
+        if (this.validator.validate()) {
+            var form = this.form;
+            var oldUrl = form.action;
+
+            if (url) {
+                form.action = url;
+            }
+            var e = null;
+            try {
+                this.form.submit();
+            } catch (e) {
+            }
+            this.form.action = oldUrl;
+            if (e) {
+                throw e;
+            }
+
+            if (button && button != 'undefined') {
+                button.disabled = true;
+            }
+        }
+    }.bind(productAddToCartForm);
+
+    productAddToCartForm.submitLight = function (button, url) {
+        if (this.validator) {
+            var nv = Validation.methods;
+            delete Validation.methods['required-entry'];
+            delete Validation.methods['validate-one-required'];
+            delete Validation.methods['validate-one-required-by-name'];
+            // Remove custom datetime validators
+            for (var methodName in Validation.methods) {
+                if (methodName.match(/^validate-datetime-.*/i)) {
+                    delete Validation.methods[methodName];
+                }
+            }
+            if (this.validator.validate()) {
+                if (url) {
+                    this.form.action = url;
+                }
+                this.form.submit();
+            }
+            Object.extend(Validation.methods, nv);
+        }
+    }.bind(productAddToCartForm);
+    //]]>
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("a[rel=example_group]").fancybox({
+            hideOnContentClick: true,
+            showNavArrows: false,
+            arrows: false,
+            showTitle: false,
+            scrolling: 'no',
+            'transitionIn': 'none',
+            'transitionOut': 'none',
+            'titlePosition': 'over',
+            'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+                return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+            }
+        });
+    });
+</script>
+
+
+<!-- Click Desk Live Chat Service for web sites -->
+<script type='text/javascript'>var _glc = _glc || [];
+    _glc.push('all_ag9zfmNsaWNrZGVza2NoYXRyDwsSBXVzZXJzGJzPnYANDA');
+    var glcpath = (('https:' == document.location.protocol) ? 'https://my.clickdesk.com/clickdesk-ui/browser/' : 'http://my.clickdesk.com/clickdesk-ui/browser/');
+    var glcp = (('https:' == document.location.protocol) ? 'https://' : 'http://');
+    var glcspt = document.createElement('script');
+    glcspt.type = 'text/javascript';
+    glcspt.async = true;
+    glcspt.src = glcpath + 'livechat-new.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(glcspt, s);
+</script>
+<!-- End of Click Desk -->

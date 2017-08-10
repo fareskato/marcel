@@ -1,0 +1,16 @@
+<?php $_menu = $this->getHtml('level-top');?>
+<div class="mobMenu span12">
+<h1>
+<span>Menu</span>
+<a href="javascript:void(0);" class="menuBox highlight"><i class="fa fa-align-justify"></i></a>
+<span class="clearfix"></span>
+</h1>
+<div style="display:none;" id="menuInnner">
+<?php if ($_menu): ?>
+		<ul class="accordion">
+			<?php echo $_menu; ?>
+		</ul>
+<?php endif ?>
+      
+</div>      
+</div>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AdjustWare_Icon>
+            <active>true</active>
+            <codePool>local</codePool>
+            <self_name>Visualize Your Attributes</self_name>
+            <priority>10080</priority>
+        </AdjustWare_Icon>
+    </modules>
+</config>
+<!--
+/**
+ * Visualize Your Attributes - Color Swatch
+ *
+ * @category:    AdjustWare
+ * @package:     AdjustWare_Icon
+ * @version      3.1.15
+ * @license:     hlC9gt9cdSBrS26S2Ln1ysO97rKL4VLtOdRx2Aycga
+ * @copyright:   Copyright (c) 2015 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->

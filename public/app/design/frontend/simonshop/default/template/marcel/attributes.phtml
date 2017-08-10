@@ -1,0 +1,182 @@
+<?php
+// Get the current page id
+//$current_page_id = Mage::getBlockSingleton('cms/page')->getPage()->getId();
+// Get the current category id
+$catId = Mage::getModel('catalog/layer')->getCurrentCategory()->getId();
+// check if the category exists
+$categoryExists = Mage::getModel('catalog/category')->load($catId);
+$adjHelper = Mage::helper('adjicon/data');
+$productCollection = (!$categoryExists) ? Mage::getModel('catalog/category')->load(2)->getProductCollection(): Mage::getModel('catalog/category')->load($catId)->getProductCollection();
+$adjHelper->init($productCollection);
+//$attributes = Mage::getResourceModel('catalog/product_attribute_collection')->addVisibleFilter();
+$attributeArray = array();
+$colorIds = array();
+$materialIds = array();
+$current_page = '';
+/*
+* Check to see if its a CMS page
+* if it is then get the page identifier
+*/
+if(Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'):
+    $current_page = Mage::getSingleton('cms/page')->getIdentifier();
+endif;
+/*
+* If its not CMS page, then just get the route name
+*/
+if(empty($current_page)):
+    $current_page = Mage::app()->getFrontController()->getRequest()->getRouteName();
+endif;
+/*
+* What if its a catalog page?
+* Then we can get the category path :)
+*/
+if($current_page == 'catalog'):
+     $catId = Mage::getModel('catalog/layer')->getCurrentCategory()->getId(); 
+ $category = Mage::getModel('catalog/category')->load($catId); 
+ $current_page = $category->getUrl(); 
+endif;
+
+$currentUrl = $current_page;//(Mage::getBlockSingleton('page/html_header')->getIsHomePage()) ?  'products.html' : $this->helper('core/url')->getCurrentUrl();
+
+
+if (!in_array(Mage::app()->getFrontController()->getAction()->getFullActionName(), array('cms_index_noRoute', 'cms_index_defaultNoRoute'))) {
+    $currentUrl = Mage::helper('core/url')->getCurrentUrl();
+}
+//echo $currentUrl;
+//die();
+
+$currentUrl = explode('?',$currentUrl);
+$currentUrl = $currentUrl[0];
+
+
+
+//echo Mage::getSingleton('cms/page')->getIdentifier();
+foreach ($productCollection as $prod) {
+
+    $fullProd = Mage::getModel('catalog/product')->load($prod->getId());
+    //color
+    $optionIds = $fullProd->getData('color');
+    $optionIds = explode(',', $optionIds);
+    foreach ($optionIds as $yolki) {
+        $colorIds[$yolki] = $yolki;
+    }
+    //material
+    $optionIds = $fullProd->getData('material');
+    $optionIds = explode(',', $optionIds);
+    foreach ($optionIds as $yolki) {
+        $materialIds[$yolki] = $yolki;
+    }
+}
+$iconsColor = Mage::getModel('adjicon/attribute')
+        ->getIconsByOptions(array_unique($colorIds), Mage::app()->getStore()->getId());
+$materialsColor = Mage::getModel('adjicon/attribute')
+        ->getIconsByOptions(array_unique($materialIds), Mage::app()->getStore()->getId());
+//print_r($materialsColor);
+$mat_get = '';
+$color_get = '';
+$current_color = null;
+$current_material = null;
+
+
+echo "<div class='attr-header-wrapper'><h2 class='attr-header'>".$this->__('Color and leather choice')."</h2></div>";
+
+echo "<div class='col-lg-12 attr-colors'><div class='col-lg-8 col-lg-offset-1'><div class='col-lg-3 marcel-attr-head'><h2>".$this->__('By color').":</h2></div><div id='color-wrapper' class='col-lg-9'>";
+if (isset($_GET['color'])) {
+    $current_color = $_GET['color'];
+    $color_get = '&color=' . $_GET['color'];
+ // echo "<div class='col-lg-6 attr-colors'><h2>Choose the accessories color</h2>";
+}
+
+if (isset($_GET['material'])) {
+    $mat_get = '&material=' . $_GET['material'];
+    $current_material = $_GET['material'];
+    //echo "<div class='col-lg-6 attr-materials'><h2>Choose the skin material</h2>";
+}
+
+foreach ($iconsColor as $idColor => $attrColor) {
+    $active = '';
+    if (isset($_GET['color']) && $_GET['color'] == $idColor) {
+        $active = 'active-color';
+    } ?>
+    
+<div class='color-attr-wrap <?php echo $active ?> <?php if($idColor ==8):?>white <?php endif; ?> '>
+    <div class='color-icon-wrap'>
+        <?php
+        $address = $currentUrl;
+        $aGet = array();
+        if($idColor != $current_color) {
+            $aGet['color'] = $idColor;
+        }
+        if($current_material !== null) {
+            $aGet['material'] = $current_material;
+        }
+        
+        if(count($aGet) > 0) {
+            $address .= '?'.http_build_query($aGet);
+        }
+        
+        ?>
+        <a 
+            id="<?php echo $idColor ?>" 
+            class='color-icones' 
+            title="<?php echo $attrColor[0]?>" 
+            style='background:<?php echo $attrColor[2] ?>' 
+            href='<?php echo $address; ?>'
+            ></a>
+    </div><div class='color-icon-text'><a href='<?php echo $address; ?>'><?php echo $attrColor[0] ?></a></div></div>
+<?php }
+echo "</div></div>"; ?>
+    <?php if(isset($_GET['color'])): 
+        $addressClear = $currentUrl;
+        if($current_material != null) {
+            $addressClear .= '?material='.$current_material;
+        }
+        ?>
+        
+            <div class='col-lg-3 del-color-filter'><a href="<?php echo $addressClear;  ?>"><?php echo $this->__('Clear filter')  ?> </a></div>
+       
+    <?php endif;?>
+<?php
+echo "</div><div class='col-lg-12 attr-materials'><div class='col-lg-8 col-lg-offset-1'><div class='col-lg-3 marcel-attr-head'><h2>".$this->__('By skin type').":</h2></div>";
+
+foreach ($materialsColor as $idMat => $attrImg) {
+    $active = '';
+    if (isset($_GET['material']) && $_GET['material'] == $idMat) {
+        $active = 'active-attr';		
+    }
+	  $address = $currentUrl;
+        $aGet = array();
+        if($current_color != null) {
+            $aGet['color'] = $current_color;
+        }
+        if($idMat != $current_material) {
+            $aGet['material'] = $idMat;
+        }
+        
+        if(count($aGet) > 0) {
+            $address .= '?'.http_build_query($aGet);
+        }
+//    echo "<div class='img-attr-wrap' class='col-lg-9'><a class='img-icones " . $active . "' style='background:url(". Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."icons/$attrImg[1]) center center no-repeat' href='/products.html?material=" . $idMat . "" . $color_get . "'></a></div>"; //(material attr name) <a href='/products.html?material=" . $idMat . "" . $color_get . "'>$attrImg[0]</a>
+    $src =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."icons/".$attrImg[1];
+    echo "<div class='img-attr-wrap'>"
+    . "<a "
+            . "id='$idMat'". " "
+            . "class='img-icones  $active '". " "
+            . "title =".$attrImg[0]." "
+            . "href='" . $address . "'"
+            . "><span class='material-hover'></span><img src =".$src." ></a></div>"; //(material attr name) <a href='/products.html?material=" . $idMat . "" . $color_get . "'>$attrImg[0]</a>
+}
+//die();
+echo "</div>"; ?>
+<?php if(isset($_GET['material'])) : 
+    $addressClear = $currentUrl;
+        if($current_color != null) {
+            $addressClear .= '?color='.$current_color;
+        }
+    ?>
+        <div class='col-lg-3 del-material-filter'>
+            <a href="<?php echo $addressClear ?>"><?php echo $this->__('Clear filter') ?></a></div><?php endif;?>
+<?php
+echo "</div>";
+
+echo "<div style='clear:both;'></div>"; ?>

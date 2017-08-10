@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<config>
+    <modules>
+        <Marcel_Gender>
+            <version>0.1.0</version>
+        </Marcel_Gender>
+    </modules>
+    <global>
+        <blocks>
+            <marcel_gender>
+                <class>Marcel_Gender_Block</class>
+            </marcel_gender>
+        </blocks>
+        <models>
+            <marcel_gender>
+                <class>Marcel_Gender_Model</class>
+            </marcel_gender>
+        </models>
+    </global>
+</config>

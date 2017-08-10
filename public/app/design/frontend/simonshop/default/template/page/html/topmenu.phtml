@@ -1,0 +1,56 @@
+<?php $config = Mage::getStoreConfig('mdlmdlnavi/navsettings'); ?>
+<?php $config2 = Mage::getStoreConfig('mdloption/genral_theme_setting'); ?>
+<?php $config3 = Mage::getStoreConfig('mdloption/headerpan'); ?>
+<?php $_menu = $this->getHtml('level-top');?>
+<?php if ($_menu): ?>
+		<ul id="nav" class="dmenu">
+			<?php if($config3['header-option']!=3):?>
+				<?php if($config2['logo_img_fix']==true):?>
+					<li class="fxlogo" style="padding-top:<?php echo $config2['logo-space-fix'] ?>px;">
+						<!--small logo-->
+						<h2 class="fixlogo">
+							<a class="" href="<?php echo $this->getUrl('') ?>">
+								<img src="<?php echo Mage::getBaseUrl('media') . 'logo/' .$config2['logo_img_fix'];?>" alt="<?php echo $this->getLogoAlt() ?>"
+							</a>
+						</h2>
+					</li>
+				<?php else:?>
+					<li class="fxlogo" style="padding-top:<?php echo $config2['logo-space-fix'] ?>px;">
+						<a class="" href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>">
+							<?php if($config2['logo_img']==true):?>
+								<img src="<?php  echo Mage::getBaseUrl('media') . 'logo/' .$config2['logo_img'];?>" alt="<?php echo $this->getLogoAlt() ?>" />
+							<?php else:?>
+<img src="<?php  echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>/logo/small/small-logo.png" alt="<?php echo $this->getLogoAlt() ?>" />
+							<?php endif;?> 
+						</a>
+					</li>	
+				<?php endif;?>
+			<?php endif;?>
+            <?php if($config['navoption_home']=='1'):?>
+            <li class="home level0"><a class="level-top" href="<?php echo $this->getUrl('') ?>"><?php echo $this->__('Home')?></a></li>
+            <?php elseif($config['navoption_home']=='2'):?>
+            <li class="home hicon level0"><a href="<?php echo $this->getUrl('') ?>"><i class="fa fa-home"></i></a></li>
+            <?php elseif($config['navoption_home']=='3'):?>
+            <li class="home level0"><a href="<?php echo $this->getUrl('') ?>"><i class="fa fa-home home-link"></i><?php echo $this->__('Home')?></a></li>
+            <?php endif;?>
+			<?php echo $_menu; ?>
+            
+		</ul>
+<?php endif ?>
+
+<?php $_menu = $this->getHtml('level-top');?>
+<div class="mobMenu span12">
+<h1>
+<span>Menu</span>
+<a href="javascript:void(0);" class="menuBox highlight"><i class="fa fa-align-justify"></i></a>
+<span class="clearfix"></span>
+</h1>
+<div style="display:none;" id="menuInnner">
+<?php if ($_menu): ?>
+		<ul class="accordion">
+			<?php  echo $_menu; ?>
+		</ul>
+<?php endif ?>
+      
+</div>      
+</div>

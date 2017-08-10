@@ -1,0 +1,68 @@
+<?php $config = Mage::getStoreConfig('mdlmdlnavi/navsettings'); ?>
+<?php $config2 = Mage::getStoreConfig('mdloption/genral_theme_setting'); ?>
+<?php $config3 = Mage::getStoreConfig('mdloption/headerpan'); ?>
+<?php $_menu = $this->getHtml('level-top', 'pump'); ?>
+
+<?php if ($_menu): ?>
+    <ul id="nav">
+        <?php if ($config3['header-option'] != 3): ?>
+            <?php if ($config2['logo_img_fix'] == true): ?>
+                <li class="fxlogo" style="padding-top:<?php echo $config2['logo-space-fix'] ?>px;">
+                    <!--small logo-->
+                    <h2 class="fixlogo">
+                        <a class="" href="<?php echo $this->getUrl('') ?>">
+                            <img src="<?php echo Mage::getBaseUrl('media') . 'logo/' . $config2['logo_img_fix']; ?>" alt="<?php echo $this->getLogoAlt() ?>">
+                        </a>
+                    </h2>
+                </li>
+            <?php else: ?>
+                <li class="fxlogo" style="padding-top:<?php echo $config2['logo-space-fix'] ?>px;">
+                    <a class="" href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>">
+                        <?php if ($config2['logo_img'] == true): ?>
+                            <img src="<?php echo Mage::getBaseUrl('media') . 'logo/' . $config2['logo_img']; ?>" alt="<?php echo $this->getLogoAlt() ?>" />
+                        <?php else: ?>
+                            <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>/logo/small/small-logo.png" alt="<?php echo $this->getLogoAlt() ?>" />
+                        <?php endif; ?> 
+                    </a>
+                </li>	
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($config['navoption_home'] == '1'): ?>
+            <li class="home level0"><a class="level-top 44" href="<?php echo $this->getUrl('') ?>"><?php echo $this->__('Home') ?></a></li>
+        <?php elseif ($config['navoption_home'] == '2'): ?>
+            <li class="home hicon level0"><a href="<?php echo $this->getUrl('') ?>"><i class="fa fa-home"></i></a></li>
+        <?php elseif ($config['navoption_home'] == '3'): ?>
+            <li class="home level0"><a href="<?php echo $this->getUrl('') ?>"><i class="fa fa-home home-link"></i><?php echo $this->__('Home') ?></a></li>
+                <?php endif; ?>
+		
+        <?php
+        // Altima : Main menu manipulation 
+        echo $_menu;
+        ?>
+		<?php
+		//$cmsPage = Mage::getModel('cms/page')->setStore(Mage::app()->getStore()->getId())->load('products.html', 'identifier');
+		$identifier='products.html';
+		$page   = Mage::getModel('cms/page');
+		$pageId = $page->checkIdentifier($identifier, Mage::app()->getStore()->getId());
+		$cmsPage = 'All products';
+		if ($pageId) {
+		   $cmsPage = Mage::getModel('cms/page')->load($pageId);
+		}
+		
+		?>
+            <li class="level0 allaccessories col-lg-5 col-sm-4"><a href="<?php echo Mage::helper('cms/page')->getPageUrl( $cmsPage->getId() ) ?>"><span><?php print $cmsPage->getTitle(); ?></span><img src="<?php echo $this->getSkinUrl('images/marcel/allaccessories-icon.png'); ?>" /></a></li>
+		
+    </ul>
+
+    <script type="text/javascript">
+        (function ($) {
+            $("document").ready(function(){	
+				$('ul#nav>li.level-top:first').addClass('col-lg-3 col-sm-4').find(' > a').prepend("<img src='<?php echo $this->getSkinUrl('images/marcel/iphone-icon.png'); ?>' />");
+                $('ul#nav>li.level-top:last').addClass('col-lg-4 col-sm-4').find(' > a').prepend("<img src='<?php echo $this->getSkinUrl('images/marcel/applewatch-icon.png'); ?>' />");
+            });
+        })(jQuery);
+    </script>
+
+    <?php
+ endif ;

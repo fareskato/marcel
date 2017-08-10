@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Naviz_StoreSwitcher>
+      <version>0.1.0</version>
+    </Naviz_StoreSwitcher>
+  </modules>
+  <global>
+    <helpers>
+      <storeswitcher>
+        <class>Naviz_StoreSwitcher_Helper</class>
+      </storeswitcher>
+    </helpers>
+	<models>
+	  <storeswitcher>
+		<class>Naviz_StoreSwitcher_Model</class>
+		<resourceModel>storeswitcher_mysql4</resourceModel>
+	  </storeswitcher>
+	</models>
+    <events>
+	  <controller_action_predispatch> <!-- identifier of the event we want to catch -->
+        <observers>
+          <controller_action_predispatch_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>storeswitcher/observer</class> <!-- observers class alias -->
+            <method>getLocationInfoByIp</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </controller_action_predispatch_handler>
+        </observers>
+      </controller_action_predispatch>
+    </events>
+  </global>
+</config> 

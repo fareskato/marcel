@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+     <modules>
+        <All_Products>
+        <version>0.1.0</version>
+        </All_Products>
+     </modules>
+           <global>
+               <page>
+                 <layouts>
+                    <allproducts translate="label">
+                           <label>All_Products</label>
+                             <template>page/allproducts.phtml</template>
+                           <layout_handle>allproducts</layout_handle>
+                    </allproducts>
+                 </layouts>
+               </page>
+          </global>
+ </config>
